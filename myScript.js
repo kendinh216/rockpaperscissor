@@ -1,65 +1,94 @@
-function computerPlay(){
-    var min = 0;
-    var max = 3;
-    var random = 
-    Math.floor(Math.random() * (+max - +min)) + +min;
-    if (random == 0){
-        return 'Rock';
-    }
-    else if (random == 1){
-        return 'Paper';
-    }
-    else
-        return 'Scissor';
+let userScore = 0;
+let computerScore = 0;
+const userScore_span = document.getElementById("user-score");
+const computerScore_span = document.getElementById("computer-score");
+const scoreBoard_div = document.querySelector(".score-board");
+const result_p = document.querySelector(".result > p");
+const rock_div = document.getElementById("rock");
+const paper_div = document.getElementById("paper");
+const scissor_div = document.getElementById("scissor");
+const reset_div = document.getElementById("reset-box");
+
+function main(){
+    rock_div.addEventListener('click', function(){
+        playRound("rock", computerPlay());
+    })
+    paper_div.addEventListener('click', function(){
+        playRound("paper", computerPlay());
+    })
+    scissor_div.addEventListener('click', function(){
+        playRound("scissor", computerPlay());
+    })
+    reset_div.addEventListener('click', function(){reset()})
 }
+
+
+main();
+
 
 function playRound(playerSelection, computerSelection){
-    var playerSelect = playerSelection.toUpperCase();
-    var computerSelect = computerSelection.toUpperCase();
-    if(playerSelect == computerSelect)
-        return 'The computer played: ' + computerSelect+ '. A DRAW !'
-    else if (playerSelect == 'ROCK' && computerSelect == 'PAPER')
-        return 'The computer played: ' + computerSelect + '. Sorry you lose! Paper beats Rock'
-    else if (playerSelect == 'ROCK' && computerSelect == 'SCISSOR')
-        return 'The computer played: ' + computerSelect + '. You Win! Rock beats Scissor'
-    else if (playerSelect == 'PAPER' && computerSelect == 'SCISSOR')
-        return 'The computer played: ' + computerSelect + '. Sorry you lose! Scissor beats Paper'
-    else if (playerSelect == 'PAPER' && computerSelect == 'ROCK')
-        return 'The computer played: ' + computerSelect + '. You Win! Paper beats rock'
-    else if (playerSelect == 'SCISSOR' && computerSelect == 'ROCK')
-        return 'The computer played: ' + computerSelect + '. Sorry you lose! Rock beats Scissor'
-    else if (playerSelect == 'SCISSOR' && computerSelect == 'PAPER')
-        return 'The computer played: ' + computerSelect + '. You Win! Scissor beats Paper'
+    switch(playerSelection + computerSelection){
+        case "rockscissor":
+        case "paperrock":
+        case "scissorpaper":
+            win(playerSelection, computerSelection);
+            break;
+        case "rockpaper":
+        case "paperscissor":
+        case "scissorrock":
+            lose(playerSelection, computerSelection);
+            break;
+        case "rockrock":
+        case "scissorscissor":
+        case "paperpaper":
+        draw(playerSelection, computerSelection);
+        break;
+    }
 }
 
-function game(){
-    let userScore = 0;
-    let compScore = 0;
+function win(user, comp){
+    userScore++;
+    userScore_span.innerHTML = userScore;
+    const smallUserWord = "user".fontsize(3).sub();
+    const smallCompWord = "comp".fontsize(3).sub();
+    result_p.innerHTML = convert(user) + smallUserWord + " beats " + convert(comp) + smallCompWord + " .You win!";
+    document.getElementById(user).classList.add('green-glow');
+    setTimeout(function(){document.getElementById(user).classList.remove('green-glow')}, 300);
+}
 
-    for(var i = 0; i < 5; i++){
-        let playerSelect = prompt('What is your choice? (type Rock, Paper, or Scissor - case-free)');
-        let compSelect = computerPlay();
-        console.log(playRound(playerSelect, compSelect));
-        // Keeping Score
-        playerSelect = playerSelect.toUpperCase();
-        var computerSelect = compSelect.toUpperCase();                 
-    if (playerSelect == 'ROCK' && computerSelect == 'PAPER')
-        compScore++;
-    else if (playerSelect == 'ROCK' && computerSelect == 'SCISSOR')
-        userScore++;
-    else if (playerSelect == 'PAPER' && computerSelect == 'SCISSOR')
-        compScore++;
-    else if (playerSelect == 'PAPER' && computerSelect == 'ROCK')
-        userScore++;
-    else if (playerSelect == 'SCISSOR' && computerSelect == 'ROCK')
-        compScore++;
-    else if (playerSelect == 'SCISSOR' && computerSelect == 'PAPER')
-        userScore++;
-    }
-    if(userScore > compScore)
-        return 'Game is over. Your score is ' + userScore + '. You Win. CONGRATULAION!';
-    else if (compScore > userScore)
-        return 'Game is over. Your score is ' + userScore + '. You lose. Better luck next time :(';
-    else
-        return 'Game is over. Your score is ' + userScore + '. It is a draw!';
+function lose(user, comp){
+    computerScore++;
+    computerScore_span.innerHTML = computerScore;
+    const smallUserWord = "user".fontsize(3).sub();
+    const smallCompWord = "comp".fontsize(3).sub();
+    result_p.innerHTML = convert(comp) + smallCompWord + " beats " + convert(user) + smallUserWord + " .You lose!";
+    document.getElementById(user).classList.add('red-glow');
+    setTimeout(function(){document.getElementById(user).classList.remove('red-glow')}, 300);
+}
+
+function draw(user,comp){
+    result_p.innerHTML = "It's a Draw."
+    document.getElementById(user).classList.add('grey-glow');
+    setTimeout(function(){document.getElementById(user).classList.remove('grey-glow')}, 300);
+}
+
+function convert(lower){
+    if (lower ==='rock') return "Rock";
+    if (lower ==='paper') return "Paper";
+    if (lower ==='scissor') return "Scissor";
+
+}
+
+function computerPlay(){
+    const choices =['rock', 'paper', 'scissor'];
+    var random = Math.floor(Math.random() * 3);
+    return choices[random];
+}
+
+function reset(){
+    userScore = 0;
+    computerScore = 0;
+    userScore_span.innerHTML = userScore;
+    computerScore_span.innerHTML = computerScore;
+    result_p.innerHTML = "The Game is Reset."
 }

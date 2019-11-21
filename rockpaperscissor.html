@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Rock-Paper-Scissor Game</title>
+        <meta charset="utf-8">
+        <title >Rock-Paper-Scissor Game</title>
         <link rel="stylesheet" href="style.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
     </head>
     <body>
-        <header>
-            Let's play a Rock-Paper-Scissor Game!
-        </header>
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissor">Scissor</button>
+        <header>Rock - Paper - Scissor</header>
+        
+        <div class="score-board">
+            <div id="user-label" class="badge">user</div>
+            <div id="computer-label" class="badge">comp</div>
+            <span id="user-score">0</span>:<span id="computer-score">0</span>
+        </div>
+
+        <div class="result">
+            <p>Let's play!</p>
+        </div>
+
+        <div class="choices">
+                <div class="choice" id="rock">
+                    <img src="img/rock.png" alt="a rock" style="width: 150px">
+                </div>
+                <div class="choice" id="paper">
+                    <img src="img/paper.png" alt="paper" style="width: 150px">
+                </div>
+                <div class="choice" id="scissor">
+                    <img src="img/scissors.png" alt="scissor" style="width: 150px">
+                </div>  
+        </div>
+
+        
+        <div class="reset">
+            <div id="reset-box">Reset Game</div>
+        </div>
 
         <script src="myScript.js"></script>
+        </div>
     </body>
 </html>

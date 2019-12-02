@@ -1,5 +1,7 @@
 Project: Rock-Paper-Scissor
 
+View project here:https://kendinh216.github.io/rockpaperscissor/rockpaperscissor.html
+
 About: Created a GUI to play the game Rock-Paper-Scissor on the web browser.
 
 This is my first web broswer based game that I have created using guidance from the Odin Project and freecodecamp.org Youtube's channel.

@@ -8,4 +8,3 @@ In this project, I have learnt alot about creating a page layout with html, deco
 
 Thank you for visiting my project.
 
-Ken Yu
